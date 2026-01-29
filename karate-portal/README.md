@@ -34,6 +34,11 @@ npm install
 npm run dev
 ```
 
+## Seed an admin + player (optional)
+
+1. Set `VITE_SETUP_SECRET` in `.env`
+2. Visit `/setup` and enter the secret + the two accounts’ emails/passwords
+
 ## Roles (admin vs player)
 
 - Users are stored in Firestore under `users/{uid}` with a `role` field.

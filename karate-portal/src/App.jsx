@@ -8,6 +8,7 @@ import { EventsPage } from './pages/EventsPage.jsx'
 import { GalleryPage } from './pages/GalleryPage.jsx'
 import { ProfilePage } from './pages/ProfilePage.jsx'
 import { SignInPage } from './pages/SignInPage.jsx'
+import { SetupPage } from './pages/SetupPage.jsx'
 import { FundsPage } from './pages/admin/FundsPage.jsx'
 import { PlayerProfilesPage } from './pages/admin/PlayerProfilesPage.jsx'
 
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/events" element={<EventsPage />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/signin" element={<SignInPage />} />
+        <Route path="/setup" element={<SetupPage />} />
 
         <Route
           path="/me"
