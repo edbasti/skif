@@ -21,7 +21,8 @@ Karate-themed web app with these pages:
 2. Enable **Authentication → Email/Password**.
 3. Create **Firestore Database**.
 4. Enable **Storage**.
-5. Copy `.env.example` to `.env` and fill in your Firebase web app config values.
+5. Set **Firestore rules**: in Firebase Console go to **Firestore Database → Rules**, then paste and publish the contents of `firestore.rules` in this repo (or deploy with Firebase CLI). Without these rules, the Setup page and sign-in will get "Missing or insufficient permissions".
+6. Copy `.env.example` to `.env` and fill in your Firebase web app config values.
 
 ```bash
 cp .env.example .env

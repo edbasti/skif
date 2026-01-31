@@ -1,9 +1,13 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from 'firebase/auth'
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { GlassCard } from '../components/GlassCard.jsx'
-import { db } from '../firebase/firebase.js'
+import { auth, db } from '../firebase/firebase.js'
 import { createSecondaryAuth } from '../firebase/secondaryAuth.js'
 
 const SETUP_SECRET = import.meta.env.VITE_SETUP_SECRET
@@ -28,6 +32,8 @@ export function SetupPage() {
     const secondaryAuth = createSecondaryAuth()
     const cred = await createUserWithEmailAndPassword(secondaryAuth, email, password)
 
+    // Sign in on main app so Firestore rules allow writing users/{uid}
+    await signInWithEmailAndPassword(auth, email, password)
     await setDoc(
       doc(db, 'users', cred.user.uid),
       {
@@ -39,6 +45,7 @@ export function SetupPage() {
       },
       { merge: true },
     )
+    await signOut(auth)
 
     return { uid: cred.user.uid, email, role }
   }
