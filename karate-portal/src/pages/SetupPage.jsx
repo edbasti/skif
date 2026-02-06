@@ -76,16 +76,16 @@ export function SetupPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">Initialize / Seed Accounts</h2>
-        <p className="mt-1 text-zinc-300">
-          Creates one <span className="font-semibold text-white">admin</span> and one{' '}
-          <span className="font-semibold text-white">player</span> user in Firebase Auth and
+        <h2 className="text-2xl font-bold text-zinc-900">Initialize / Seed Accounts</h2>
+        <p className="mt-1 text-zinc-600">
+          Creates one <span className="font-semibold text-blue-700">admin</span> and one{' '}
+          <span className="font-semibold text-blue-700">player</span> user in Firebase Auth and
           saves roles in Firestore.
         </p>
       </div>
 
       {!SETUP_SECRET && (
-        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-sm text-amber-100">
+        <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800">
           Add <code className="font-mono">VITE_SETUP_SECRET</code> to your <code className="font-mono">.env</code>{' '}
           to enable this page.
         </div>
@@ -94,54 +94,54 @@ export function SetupPage() {
       <GlassCard>
         <form onSubmit={onSeed} className="space-y-5">
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Setup secret</span>
+            <span className="text-xs text-zinc-600">Setup secret</span>
             <input
               value={secret}
               onChange={(e) => setSecret(e.target.value)}
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="Enter VITE_SETUP_SECRET"
             />
-            <div className="text-xs text-zinc-400">
+            <div className="text-xs text-zinc-500">
               This prevents anyone from seeding accounts without your secret.
             </div>
           </label>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div className="text-sm font-semibold text-white">Admin credentials</div>
+            <div className="rounded-2xl border border-blue-200 bg-blue-50/50 p-4">
+              <div className="text-sm font-semibold text-blue-800">Admin credentials</div>
               <div className="mt-3 grid gap-3">
                 <input
                   value={adminEmail}
                   onChange={(e) => setAdminEmail(e.target.value)}
                   type="email"
-                  className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+                  className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500"
                   placeholder="admin@example.com"
                 />
                 <input
                   value={adminPassword}
                   onChange={(e) => setAdminPassword(e.target.value)}
                   type="password"
-                  className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+                  className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500"
                   placeholder="Admin password"
                 />
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div className="text-sm font-semibold text-white">Player credentials</div>
+            <div className="rounded-2xl border border-yellow-200 bg-yellow-50/50 p-4">
+              <div className="text-sm font-semibold text-yellow-800">Player credentials</div>
               <div className="mt-3 grid gap-3">
                 <input
                   value={playerEmail}
                   onChange={(e) => setPlayerEmail(e.target.value)}
                   type="email"
-                  className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+                  className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500"
                   placeholder="player@example.com"
                 />
                 <input
                   value={playerPassword}
                   onChange={(e) => setPlayerPassword(e.target.value)}
                   type="password"
-                  className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+                  className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500"
                   placeholder="Player password"
                 />
               </div>
@@ -149,15 +149,15 @@ export function SetupPage() {
           </div>
 
           {error && (
-            <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-100">
+            <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
               {error}
             </div>
           )}
 
           {result && (
-            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm text-emerald-100">
+            <div className="rounded-xl border border-green-200 bg-green-50 p-3 text-sm text-green-800">
               Seed complete.
-              <pre className="mt-2 overflow-auto rounded-lg bg-black/30 p-3 text-xs text-zinc-100">
+              <pre className="mt-2 overflow-auto rounded-lg bg-zinc-100 p-3 text-xs text-zinc-700">
                 {JSON.stringify(result, null, 2)}
               </pre>
             </div>
@@ -166,19 +166,19 @@ export function SetupPage() {
           <div className="flex flex-wrap gap-2">
             <button
               disabled={busy || !canRun}
-              className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-100 disabled:opacity-60"
+              className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
             >
               {busy ? 'Working…' : 'Create admin + player'}
             </button>
             <Link
               to="/signin"
-              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+              className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-200"
             >
               Go to Sign in
             </Link>
           </div>
 
-          <div className="text-xs text-zinc-400">
+          <div className="text-xs text-zinc-500">
             If an email already exists, Firebase will return an error. Use Sign In instead.
           </div>
         </form>

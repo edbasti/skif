@@ -22,7 +22,17 @@ Karate-themed web app with these pages:
 3. Create **Firestore Database**.
 4. Enable **Storage**.
 5. Set **Firestore rules**: in Firebase Console go to **Firestore Database → Rules**, then paste and publish the contents of `firestore.rules` in this repo (or deploy with Firebase CLI). Without these rules, the Setup page and sign-in will get "Missing or insufficient permissions".
-6. Copy `.env.example` to `.env` and fill in your Firebase web app config values.
+6. **Configure CORS for Storage** (required for carousel uploads from the browser): Firebase Storage is backed by Google Cloud Storage. To allow uploads from your app origin (e.g. `http://localhost:5173`), set CORS on the bucket once:
+
+   - Install [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) and run `gcloud auth login` (use the same Google account as your Firebase project).
+   - From this directory, run (replace `skif-ff3dc` with your Firebase project ID if different):
+
+   ```bash
+   gcloud storage buckets update gs://skif-ff3dc.appspot.com --cors-file=storage-cors.json
+   ```
+
+   If your Storage bucket uses a different name (e.g. `your-project.firebasestorage.app`), use that as the bucket name. To list buckets: `gcloud storage buckets list`. When you deploy to production, add your production origin (e.g. `https://your-site.netlify.app`) to `storage-cors.json` and run the same command again.
+7. Copy `.env.example` to `.env` and fill in your Firebase web app config values.
 
 ```bash
 cp .env.example .env

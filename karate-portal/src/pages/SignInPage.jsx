@@ -64,15 +64,18 @@ export function SignInPage() {
       setBusy(true)
       if (mode === 'signin') {
         const cred = await signInWithEmailAndPassword(auth, email, password)
-        // Ensure doc exists, without overwriting role.
-        await ensureUserDoc(cred.user.uid)
         if (role === 'admin') {
           const snap = await getDoc(doc(db, 'users', cred.user.uid))
-          const savedRole = snap.data()?.role ?? 'player'
+          const savedRole = snap.exists() ? (snap.data()?.role ?? 'player') : 'player'
           if (savedRole !== 'admin') {
             await signOut(auth)
-            throw new Error('This account is not an admin.')
+            throw new Error(
+              'This account is not an admin. Set users/{uid}.role to "admin" in Firestore, or create the admin via /setup.',
+            )
           }
+        } else {
+          // Ensure doc exists for players, without overwriting role.
+          await ensureUserDoc(cred.user.uid)
         }
         navigate('/me')
         return
@@ -100,10 +103,10 @@ export function SignInPage() {
   return (
     <div className="mx-auto max-w-xl space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">{title}</h2>
-        <p className="mt-1 text-zinc-300">
-          Two options: <span className="font-semibold text-white">admin</span> and{' '}
-          <span className="font-semibold text-white">player</span>.
+        <h2 className="text-2xl font-bold text-zinc-900">{title}</h2>
+        <p className="mt-1 text-zinc-600">
+          Two options: <span className="font-semibold text-blue-700">admin</span> and{' '}
+          <span className="font-semibold text-blue-700">player</span>.
         </p>
       </div>
 
@@ -111,22 +114,24 @@ export function SignInPage() {
         <div className="flex gap-2">
           <button
             onClick={() => setMode('signin')}
+            type="button"
             className={[
               'flex-1 rounded-xl px-3 py-2 text-sm font-semibold',
               mode === 'signin'
-                ? 'bg-white text-zinc-950'
-                : 'border border-white/10 bg-white/5 text-white hover:bg-white/10',
+                ? 'bg-blue-600 text-white'
+                : 'border border-zinc-300 bg-zinc-100 text-zinc-700 hover:bg-zinc-200',
             ].join(' ')}
           >
             Sign in
           </button>
           <button
             onClick={() => setMode('signup')}
+            type="button"
             className={[
               'flex-1 rounded-xl px-3 py-2 text-sm font-semibold',
               mode === 'signup'
-                ? 'bg-white text-zinc-950'
-                : 'border border-white/10 bg-white/5 text-white hover:bg-white/10',
+                ? 'bg-blue-600 text-white'
+                : 'border border-zinc-300 bg-zinc-100 text-zinc-700 hover:bg-zinc-200',
             ].join(' ')}
           >
             Sign up
@@ -135,7 +140,7 @@ export function SignInPage() {
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div className="grid gap-2">
-            <div className="text-xs uppercase tracking-wide text-zinc-400">
+            <div className="text-xs uppercase tracking-wide text-zinc-500">
               {mode === 'signin' ? 'Sign in as' : 'Account type'}
             </div>
               <div className="grid grid-cols-2 gap-2">
@@ -145,8 +150,8 @@ export function SignInPage() {
                   className={[
                     'rounded-xl px-3 py-2 text-sm font-semibold',
                     role === 'player'
-                      ? 'bg-white text-zinc-950'
-                      : 'border border-white/10 bg-white/5 text-white hover:bg-white/10',
+                      ? 'bg-blue-600 text-white'
+                      : 'border border-zinc-300 bg-zinc-100 text-zinc-700 hover:bg-zinc-200',
                   ].join(' ')}
                 >
                   Player
@@ -157,8 +162,8 @@ export function SignInPage() {
                   className={[
                     'rounded-xl px-3 py-2 text-sm font-semibold',
                     role === 'admin'
-                      ? 'bg-white text-zinc-950'
-                      : 'border border-white/10 bg-white/5 text-white hover:bg-white/10',
+                      ? 'bg-blue-600 text-white'
+                      : 'border border-zinc-300 bg-zinc-100 text-zinc-700 hover:bg-zinc-200',
                   ].join(' ')}
                 >
                   Admin
@@ -166,11 +171,11 @@ export function SignInPage() {
               </div>
               {mode === 'signup' && role === 'admin' && (
                 <label className="grid gap-1">
-                  <span className="text-xs text-zinc-300">Admin invite code</span>
+                  <span className="text-xs text-zinc-600">Admin invite code</span>
                   <input
                     value={invite}
                     onChange={(e) => setInvite(e.target.value)}
-                    className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+                    className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                     placeholder="Enter invite code"
                   />
                 </label>
@@ -178,44 +183,44 @@ export function SignInPage() {
           </div>
 
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Email</span>
+            <span className="text-xs text-zinc-600">Email</span>
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
               required
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="you@example.com"
             />
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Password</span>
+            <span className="text-xs text-zinc-600">Password</span>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               type="password"
               required
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="••••••••"
             />
           </label>
 
           {error && (
-            <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-100">
+            <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
               {error}
             </div>
           )}
 
           <button
             disabled={busy}
-            className="w-full rounded-xl bg-white px-3 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-100 disabled:opacity-60"
+            className="w-full rounded-xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
           >
             {busy ? 'Working…' : title}
           </button>
 
-          <div className="text-center text-xs text-zinc-400">
-            <Link className="underline hover:text-zinc-200" to="/">
+          <div className="text-center text-xs text-zinc-500">
+            <Link className="text-blue-600 underline hover:text-blue-700" to="/">
               Back to home
             </Link>
           </div>

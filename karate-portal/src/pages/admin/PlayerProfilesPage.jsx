@@ -104,80 +104,80 @@ export function PlayerProfilesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-white">Player Profiles</h2>
-        <p className="mt-1 text-zinc-300">CRUD for karate players.</p>
+        <h2 className="text-2xl font-bold text-zinc-900">Player Profiles</h2>
+        <p className="mt-1 text-zinc-600">CRUD for karate players.</p>
       </div>
 
       <GlassCard>
-        <div className="text-sm font-semibold text-white">
+        <div className="text-sm font-semibold text-zinc-900">
           {editing ? 'Edit player' : 'Add new player'}
         </div>
 
         <form onSubmit={onSubmit} className="mt-4 grid gap-4 md:grid-cols-2">
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Name</span>
+            <span className="text-xs text-zinc-600">Name</span>
             <input
               value={form.name}
               onChange={(e) => setField('name', e.target.value)}
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="Hikaru Tanaka"
             />
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Belt</span>
+            <span className="text-xs text-zinc-600">Belt</span>
             <input
               value={form.belt}
               onChange={(e) => setField('belt', e.target.value)}
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="Brown belt"
             />
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Dojo</span>
+            <span className="text-xs text-zinc-600">Dojo</span>
             <input
               value={form.dojo}
               onChange={(e) => setField('dojo', e.target.value)}
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="Seishin Dojo"
             />
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Age</span>
+            <span className="text-xs text-zinc-600">Age</span>
             <input
               value={form.age}
               onChange={(e) => setField('age', e.target.value)}
               inputMode="numeric"
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="18"
             />
           </label>
 
           <label className="grid gap-1">
-            <span className="text-xs text-zinc-300">Weight class</span>
+            <span className="text-xs text-zinc-600">Weight class</span>
             <input
               value={form.weightClass}
               onChange={(e) => setField('weightClass', e.target.value)}
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="-67 kg"
             />
           </label>
 
           <label className="grid gap-1 md:col-span-2">
-            <span className="text-xs text-zinc-300">Bio</span>
+            <span className="text-xs text-zinc-600">Bio</span>
             <textarea
               value={form.bio}
               onChange={(e) => setField('bio', e.target.value)}
               rows={4}
-              className="rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none focus:border-white/30"
+              className="rounded-xl border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               placeholder="Short background, achievements, goals…"
             />
           </label>
 
           {error && (
-            <div className="md:col-span-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-100">
+            <div className="md:col-span-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
               {error}
             </div>
           )}
@@ -185,7 +185,7 @@ export function PlayerProfilesPage() {
           <div className="flex flex-wrap gap-2 md:col-span-2">
             <button
               disabled={busy}
-              className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-100 disabled:opacity-60"
+              className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
             >
               {busy ? 'Working…' : editing ? 'Save changes' : 'Create player'}
             </button>
@@ -193,7 +193,7 @@ export function PlayerProfilesPage() {
               <button
                 type="button"
                 onClick={reset}
-                className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                className="rounded-xl border border-zinc-300 bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-700 hover:bg-zinc-200"
               >
                 Cancel
               </button>
@@ -203,10 +203,10 @@ export function PlayerProfilesPage() {
       </GlassCard>
 
       <GlassCard>
-        <div className="text-sm font-semibold text-white">Players</div>
+        <div className="text-sm font-semibold text-zinc-900">Players</div>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-xs uppercase tracking-wide text-zinc-400">
+            <thead className="text-xs uppercase tracking-wide text-zinc-500">
               <tr>
                 <th className="py-2 pr-4">Name</th>
                 <th className="py-2 pr-4">Belt</th>
@@ -216,33 +216,33 @@ export function PlayerProfilesPage() {
                 <th className="py-2 pr-0 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="text-zinc-200">
+            <tbody className="text-zinc-700">
               {players.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-6 text-center text-zinc-400">
+                  <td colSpan={6} className="py-6 text-center text-zinc-500">
                     No players yet.
                   </td>
                 </tr>
               ) : (
                 players.map((p) => (
-                  <tr key={p.id} className="border-t border-white/10">
-                    <td className="py-3 pr-4 font-semibold text-white">{p.name}</td>
-                    <td className="py-3 pr-4 text-zinc-300">{p.belt}</td>
-                    <td className="py-3 pr-4 text-zinc-300">{p.dojo}</td>
-                    <td className="py-3 pr-4 text-zinc-300">{p.age ?? '—'}</td>
-                    <td className="py-3 pr-4 text-zinc-300">{p.weightClass ?? '—'}</td>
+                  <tr key={p.id} className="border-t border-zinc-200">
+                    <td className="py-3 pr-4 font-semibold text-zinc-900">{p.name}</td>
+                    <td className="py-3 pr-4 text-zinc-600">{p.belt}</td>
+                    <td className="py-3 pr-4 text-zinc-600">{p.dojo}</td>
+                    <td className="py-3 pr-4 text-zinc-600">{p.age ?? '—'}</td>
+                    <td className="py-3 pr-4 text-zinc-600">{p.weightClass ?? '—'}</td>
                     <td className="py-3 pr-0">
                       <div className="flex justify-end gap-2">
                         <button
                           onClick={() => onEdit(p)}
-                          className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white hover:bg-white/10"
+                          className="rounded-lg border border-zinc-300 bg-zinc-100 px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-200"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => onDelete(p)}
                           disabled={busy}
-                          className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-sm text-red-100 hover:bg-red-500/15 disabled:opacity-50"
+                          className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-100 disabled:opacity-50"
                         >
                           Delete
                         </button>

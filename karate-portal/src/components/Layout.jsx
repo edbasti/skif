@@ -2,6 +2,7 @@ import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase/firebase.js'
 import { useAuth } from '../auth/AuthProvider.jsx'
+import skifLogo from '../assets/skif-logo.jpeg'
 
 function NavItem({ to, children }) {
   return (
@@ -11,8 +12,8 @@ function NavItem({ to, children }) {
         [
           'rounded-md px-3 py-2 text-sm font-medium transition',
           isActive
-            ? 'bg-white/10 text-white'
-            : 'text-zinc-200 hover:bg-white/5 hover:text-white',
+            ? 'bg-blue-100 text-blue-700'
+            : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900',
         ].join(' ')
       }
     >
@@ -31,16 +32,18 @@ export function Layout() {
   }
 
   return (
-    <div className="min-h-full">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-zinc-950/70 backdrop-blur">
+    <div className="min-h-full bg-white">
+      <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white/95 shadow-sm backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-red-500 to-amber-400 text-lg font-black text-zinc-950">
-              道
-            </div>
+            <img
+              src={skifLogo}
+              alt="SKIF Bataan"
+              className="h-9 w-auto rounded-xl object-contain shadow-md"
+            />
             <div className="leading-tight">
-              <div className="text-sm font-semibold text-white">SKIF Bataan</div>
-              <div className="text-xs text-zinc-400">Discipline • Respect • Growth</div>
+              <div className="text-sm font-semibold text-zinc-900">SKIF Bataan</div>
+              <div className="text-xs text-zinc-500">Discipline • Respect • Growth</div>
             </div>
           </Link>
 
@@ -60,15 +63,15 @@ export function Layout() {
 
           <div className="flex items-center gap-2">
             {loading ? (
-              <div className="text-xs text-zinc-400">Loading…</div>
+              <div className="text-xs text-zinc-500">Loading…</div>
             ) : isAuthed ? (
               <>
-                <div className="hidden text-xs text-zinc-400 sm:block">
+                <div className="hidden text-xs text-zinc-500 sm:block">
                   {user?.email} {isAdmin ? '(admin)' : '(player)'}
                 </div>
                 <button
                   onClick={onSignOut}
-                  className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white hover:bg-white/10"
+                  className="rounded-lg border border-zinc-300 bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-200"
                 >
                   Sign out
                 </button>
@@ -76,7 +79,7 @@ export function Layout() {
             ) : (
               <Link
                 to="/signin"
-                className="rounded-lg bg-white px-3 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-100"
+                className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
               >
                 Sign in
               </Link>
@@ -89,8 +92,8 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-white/10 py-10">
-        <div className="mx-auto max-w-6xl px-4 text-sm text-zinc-400">
+      <footer className="border-t border-zinc-200 bg-zinc-50 py-10">
+        <div className="mx-auto max-w-6xl px-4 text-sm text-zinc-500">
           © {new Date().getFullYear()} SKIF Bataan. Built with Vite + React + Firebase.
         </div>
       </footer>
